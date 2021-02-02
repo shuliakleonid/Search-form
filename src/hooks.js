@@ -1,4 +1,4 @@
-import {useEffect,useState} from 'react';
+import {useEffect,useState,useRef} from 'react';
 import axios from 'axios';
 
 export const useSearch = (query) => {
@@ -7,9 +7,24 @@ export const useSearch = (query) => {
     status: 'IDLE',
     error: ''
   })
-  useEffect(() => {
 
-    axios.get(`https://en.wikipedia.org/w/api.php?origin=*&action=opensearch&search=${query}`)
+  const cancelToken = useRef(null)
+
+  useEffect(() => {
+if(query.length<3){// условие для оптимизации количества запросов, если ввел больше трех букв тогда делать запрос
+  return
+}
+
+if(cancelToken.current){ //отменяет запрос который непрогрузившейся
+  console.log('cancel -------------1')
+  cancelToken.current.cancel()
+}
+
+
+cancelToken.current = axios.CancelToken.source();
+    axios.get(`https://en.wikipedia.org/w/api.php?origin=*&action=opensearch&search=${query}`, {
+      cancelToken:cancelToken.current.token // добывляем вторым парамертом
+    })
         .then(function (response) {
           const parseResponse = [];
           for (let i = 0; i < response.data[1].length; i++) {
@@ -25,11 +40,18 @@ export const useSearch = (query) => {
           })
         })
         .catch(function (error) {
+          if(axios.isCancel(error)){
+            console.log('request Cancel')
+            return
+          }
           setState({
             articles: [],
             status: 'ERROR',
             error: error
-          })
+          });
+          if(axios.isCancel(error)){
+            return
+          }
         })
 
   }, [query]);
