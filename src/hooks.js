@@ -1,4 +1,4 @@
-import {useEffect,useState,useRef} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import axios from 'axios';
 
 export const useSearch = (query) => {
@@ -11,19 +11,19 @@ export const useSearch = (query) => {
   const cancelToken = useRef(null)
 
   useEffect(() => {
-if(query.length<3){// условие для оптимизации количества запросов, если ввел больше трех букв тогда делать запрос
-  return
-}
+    if (query.length < 3) {// условие для оптимизации количества запросов, если ввел больше трех букв тогда делать запрос
+      return
+    }
 
-if(cancelToken.current){ //отменяет запрос который непрогрузившейся
-  console.log('cancel -------------1')
-  cancelToken.current.cancel()
-}
+    if (cancelToken.current) { //отменяет запрос который непрогрузившейся
+      console.log('cancel -------------1')
+      cancelToken.current.cancel()
+    }
 
 
-cancelToken.current = axios.CancelToken.source();
+    cancelToken.current = axios.CancelToken.source();
     axios.get(`https://en.wikipedia.org/w/api.php?origin=*&action=opensearch&search=${query}`, {
-      cancelToken:cancelToken.current.token // добывляем вторым парамертом
+      cancelToken: cancelToken.current.token // добывляем вторым парамертом
     })
         .then(function (response) {
           const parseResponse = [];
@@ -40,7 +40,7 @@ cancelToken.current = axios.CancelToken.source();
           })
         })
         .catch(function (error) {
-          if(axios.isCancel(error)){
+          if (axios.isCancel(error)) {
             console.log('request Cancel')
             return
           }
@@ -49,11 +49,26 @@ cancelToken.current = axios.CancelToken.source();
             status: 'ERROR',
             error: error
           });
-          if(axios.isCancel(error)){
+          if (axios.isCancel(error)) {
             return
           }
         })
 
   }, [query]);
-return state
+  return state
+}
+
+
+export const useDebounce = (value, delay = 500) => {
+  const [debounceValue, setDebauncedValue] = useState(value)
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebauncedValue(value)
+    }, delay)
+
+    return () => {
+      clearTimeout(timer)
+    }
+  }, [value, delay])
+  return debounceValue
 }
