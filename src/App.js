@@ -1,12 +1,13 @@
-import React, {useState} from 'react'
+import React from 'react'
 import ReactAutocomplete from 'react-autocomplete'
-import {useDebounce, useSearch} from './hooks';
+import {useDebounce, useSearch, useSearchForm} from './hooks';
 import {Input} from './components/input/input';
 
 
 function App() {
-  const [value, setValue] = useState('')
-  const {articles, status, error} = useSearch(useDebounce(value))
+  const {searchValue, onSearchChange} = useSearchForm()
+  const {articles, status, error} = useSearch(useDebounce(searchValue))
+  // const [value, setValue] = useState('') удаляем т.к. есть хук useSearch
 
   return (
       <>
@@ -17,16 +18,19 @@ function App() {
         <ReactAutocomplete
             items={articles}
             renderInput={Input}
-            inputProps={{placeholder:'Input a search term:' }}
+            inputProps={{placeholder: 'Input a search term:'}}
             // shouldItemRender={(item, value) => item.label.toLowerCase().indexOf(value.toLowerCase()) > -1} //удаляем за ненадобностью
 
             getItemValue={item => item.label}
-            renderMenu={(children,value,style)=>(
-              <div style={{...style}} className='input-suggestion'>
-                {children}
-            <a href={`/search?query=${value}`} className={'search-link'}> See all result</a>
-              </div>
-        )}
+            renderMenu={(children, value, style) => {
+              return articles && articles.length
+                  ? (<div style={{...style}} className='input-suggestion'>
+                    {children}
+                    <a href={`/search?query=${value}`} className={'search-link'}> See all result</a>
+                  </div>)
+                  : <></>
+
+            }}
 
 
             renderItem={(item, highlighted) =>
@@ -37,9 +41,12 @@ function App() {
                   {item.label}
                 </div>
             }
-            value={value}
-            onChange={e => setValue(e.target.value)}
-            onSelect={value => setValue({value})}
+            value={searchValue}
+            onChange={
+              // e => setValue(e.target.value)   вместо этого значение пробрасываем через кастомный хук useSearch
+              onSearchChange
+            }
+            // onSelect={value => setValue({value})}
         />
       </>
   );
