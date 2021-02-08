@@ -1,0 +1,15 @@
+.home-page-container {
+  text-align: center;
+  margin: 200px ;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  img {
+
+    max-width: 400px;
+    margin-bottom: 40px;
+
+  }
+}

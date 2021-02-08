@@ -1,7 +1,7 @@
-import {useEffect, useRef, useState,useCallback} from 'react';
+import {useCallback, useEffect, useRef, useState} from 'react';
 import axios from 'axios';
 
-export const useSearch = (query) => {
+export const useSearch = (query, limit = 10) => {
   const [state, setState] = useState({
     articles: [],
     status: 'IDLE',
@@ -22,7 +22,7 @@ export const useSearch = (query) => {
 
 
     cancelToken.current = axios.CancelToken.source();
-    axios.get(`https://en.wikipedia.org/w/api.php?origin=*&action=opensearch&search=${query}`, {
+    axios.get(`https://en.wikipedia.org/w/api.php?origin=*&action=opensearch&search=${query}&limit=${limit}`, {
       cancelToken: cancelToken.current.token // добывляем вторым парамертом
     })
         .then(function (response) {
@@ -74,9 +74,9 @@ export const useDebounce = (value, delay = 500) => {
 }
 
 export const useSearchForm = () => {
-  const [searchValue,setSearchValue]= useState('');
-  const onSearchChange = useCallback((e)=> setSearchValue(e.target.value),[]);
-  return{
+  const [searchValue, setSearchValue] = useState('');
+  const onSearchChange = useCallback((e) => setSearchValue(e.target.value), []);
+  return {
     searchValue,
     onSearchChange
   }

@@ -1,9 +1,29 @@
 import React from 'react';
+import {useSearch} from '../../hooks';
+import Container from '../../components/Conteiner';
+import Autocomplete from '../../components/Autocomplete';
 
-const Search = () => {
+const Search = ({...props}) => {
+  const search = props.location.search
+  const params = new URLSearchParams(search);
+  const query = params.get('query')
+
+  const{articles,status}=useSearch(query,50)
+  // if(!articles.length && status === 'SUCCESS'){
+  //   return <h3>No articles for query: {query}</h3>
+  // }
   return (
       <div>
-        Search Page
+        <Container>
+          {({ searchValue, onSearchChange, articles })=><Autocomplete onSearchChange={onSearchChange} articles={articles} searchValue={searchValue}/>}
+        </Container>
+        {!articles.length && status === 'SUCCESS'
+            ? <h3>No articles for query: {query}</h3>
+            : articles.map(article=>{
+          return( <div key={article.id}>
+            <a href={article.id} target='_blank'>{article.label}</a>
+          </div>)
+        })}
       </div>
   );
 };
