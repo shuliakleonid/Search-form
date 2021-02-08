@@ -1,11 +1,10 @@
 import React from 'react'
-import Container from './components/conteiner';
-import Autocomplete from './components/autocomplete';
-
-
-const  App=() => (
+import Autocomplete from './components/Autocomplete';
+import Container from './components/Conteiner';
+const App = () => (
   <Container>
-    {({searchValue, onSearchChange, articles})=><Autocomplete articles={articles} onSearchChange={onSearchChange} seachValue={searchValue}/>}
+    {({searchValue, onSearchChange, articles})=><Autocomplete articles={articles} searchValue={searchValue} onSearchChange={onSearchChange}/>}
   </Container>
 )
+
 export default App;
