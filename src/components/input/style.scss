@@ -1,0 +1,12 @@
+.input-field {
+  padding: 5px 10px;
+  border: 3px solid grey;
+  border-radius: 5px;
+  font-size: 24px;
+
+  &:focus {
+    box-shadow: none;
+    outline: none;
+  }
+
+}
