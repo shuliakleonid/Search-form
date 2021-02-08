@@ -1,13 +1,14 @@
 import React from 'react';
 import ReactAutocomplete from 'react-autocomplete'
 import Input from '../input/input';
-
+import './style.scss'
 
 
 
 const Autocomplete = ({ articles, searchValue, onSearchChange }) => (
     <ReactAutocomplete
-        slassName="autocomplete"
+
+        className="autocomplete"
         items={articles}
         renderInput={Input}
         inputProps={{placeholder: 'Input a search term: '}}
