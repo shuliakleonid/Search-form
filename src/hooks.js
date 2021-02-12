@@ -60,10 +60,10 @@ export const useSearch = (query, limit = 10) => {
 
 
 export const useDebounce = (value, delay = 500) => {
-  const [debounceValue, setDebauncedValue] = useState(value)
+  const [debounceValue, setDebouncedValue] = useState(value)
   useEffect(() => {
     const timer = setTimeout(() => {
-      setDebauncedValue(value)
+      setDebouncedValue(value)
     }, delay)
 
     return () => {
