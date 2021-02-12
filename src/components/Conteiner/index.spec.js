@@ -40,6 +40,7 @@ describe('Container component', () => {
 
     it('should return searchValue in Children component', () => {
       const { searchValue } = sut.find('Children').props();
+
       expect(searchValue).toBe('testValue')
     })
   })

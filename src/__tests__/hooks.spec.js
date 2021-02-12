@@ -1,5 +1,7 @@
 import {act, renderHook} from '@testing-library/react-hooks'
-import {useDebounce, useSearchForm} from '../hooks';
+import {useDebounce, useSearch, useSearchForm} from '../hooks';
+import moxios from 'moxios';
+
 
 jest.useFakeTimers()
 
@@ -48,11 +50,65 @@ describe('useDebounce hook', () => {
 
     expect(result.current).toBe(value1)
     jest.advanceTimersByTime(490);
-    rerender({value:value2})
+    rerender({value: value2})
     expect(result.current).toBe(value1);
 
     jest.runAllTimers();
 
     expect(result.current).toBe(value1);
   })
+})
+
+describe('useSearch hook', () => {
+  beforeEach(() => {
+    moxios.install();
+  })
+  afterEach(() => {
+    moxios.uninstall()
+  })
+
+
+  it('it should return data - empty articles', () => {
+    const {result} = renderHook(() => useSearch())
+    expect(result.current.articles).toEqual([])
+  })
+  it('it should return data - IDLE status', () => {
+    const {result} = renderHook(() => useSearch())
+    expect(result.current.status).toBe('IDLE')
+  })
+  it('it should return PENDING status when call is started', () => {
+    const {result} = renderHook(() => useSearch('elon'))
+    expect(result.current.status).toBe('PENDING')
+  })
+  it('it should return SUCCESS status when call is executed', async () => {
+    moxios.stubRequest(`https://en.wikipedia.org/w/api.php?origin=*&action=opensearch&search=elon&limit=10`, {
+      status: 200,
+      responseText: ['elon ', ['Elon Musk'], [''], ['link']]
+    });
+    const {result, waitForNextUpdate} = renderHook(() => useSearch('elon'));
+    await waitForNextUpdate()
+    expect(result.current.status).toBe('SUCCESS')
+  })
+  it('should return articles when call is executed', async () => {
+    moxios.stubRequest(`https://en.wikipedia.org/w/api.php?origin=*&action=opensearch&search=elon&limit=10`, {
+      status: 200,
+      responseText: ['elon ', ['Elon Musk'], [''], ['link']]
+    });
+    const {result, waitForNextUpdate} = renderHook(() => useSearch('elon'));
+    await waitForNextUpdate()
+    expect(result.current.articles).toEqual([{id: 'link', label: 'Elon Musk'}])
+  })
+  it('should return status ERROR when request was failed', async () => {
+    moxios.stubRequest(`https://en.wikipedia.org/w/api.php?origin=*&action=opensearch&search=elon&limit=10`, {
+      status: 500,
+      responseText: ['elon ', ['Elon Musk'], [''], ['link']]
+    });
+
+    const {result, waitForNextUpdate} = renderHook(() => useSearch('elon'));
+
+    await waitForNextUpdate();
+
+    expect(result.current.status).toBe('ERROR');
+  })
+
 })
