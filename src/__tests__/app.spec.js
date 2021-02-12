@@ -8,30 +8,36 @@ const render = (initialEntries) => mount(<MemoryRouter keyLength={0}
 
 describe('App component', () => {
   let sut;
-  describe('when home page is rendered', ()=>{
+  describe('when home page is rendered', () => {
 
+    beforeEach(() => {
+      sut = render(['/'])
+    })
 
-      beforeEach(()=>{
-        sut = render(['/'])
-      })
-
-
-    it('should match home page snapshot',()=>{
+    it('should match home page snapshot', () => {
       expect(sut).toMatchSnapshot();
     })
   })
 
-  describe('when not found page is rendered', ()=>{
+  describe('when not found page is rendered', () => {
 
-
-    beforeEach(()=>{
+    beforeEach(() => {
       sut = render(['/sdsad'])
     })
 
-
-    it('should match home page snapshot',()=>{
+    it('should match home page snapshot', () => {
       expect(sut).toMatchSnapshot();
     })
   })
+  // describe('when search page is rendered', () => {
+  //
+  //   beforeEach(() => {
+  //     sut = render(['/search'])
+  //   })
+  //
+  //   it('should match search page snapshot', () => {
+  //     expect(sut).toMatchSnapshot();
+  //   })
+  // })
 })
 
