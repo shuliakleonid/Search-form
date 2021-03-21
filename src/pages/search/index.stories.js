@@ -16,13 +16,13 @@ const Template = (args) => <Search {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {
-  location:{
-    search:'?query=dfdsd'
+  location: {
+    search: '?query=dfdsd'
   }
 };
 export const NoData = Template.bind({});
 NoData.args = {
-  location:{
-    search:'?query='
+  location: {
+    search: '?query='
   }
 };
