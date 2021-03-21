@@ -1,5 +1,5 @@
 # Search-form (Clone Google Search)
-![example](https://i.ibb.co/hXBRvQb/Clone-Google.png)
+[![Search-form](https://i.ibb.co/hXBRvQb/Clone-Google.png)](https://shuliakleonid.github.io/Search-form/)
 
 #### Description of your project
 This is clone of Google search with using Wikipedia API.
