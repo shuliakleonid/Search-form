@@ -57,7 +57,7 @@ describe('Autocomplete component', () => {
           id: 1,
           label: 'test'
         }
-        expect(renderMenu(item,true)).toMatchSnapshot();
+        expect(renderMenu(item, true)).toMatchSnapshot();
       })
     })
     describe('when iem is NOT highlighted', () => {
@@ -67,16 +67,16 @@ describe('Autocomplete component', () => {
           id: 1,
           label: 'test'
         }
-        expect(renderItem(item,false)).toMatchSnapshot();
+        expect(renderItem(item, false)).toMatchSnapshot();
       })
     })
-    describe('when getItemLabel is called', ()=>{
-      beforeEach(()=>{
-        sut =render(props)
+    describe('when getItemLabel is called', () => {
+      beforeEach(() => {
+        sut = render(props)
       })
-      it('should return label', ()=>{
-        const {getItemValue}= sut.props();
-        expect(getItemValue({label:'test'})).toBe('test')
+      it('should return label', () => {
+        const {getItemValue} = sut.props();
+        expect(getItemValue({label: 'test'})).toBe('test')
 
       })
     })

@@ -9,18 +9,16 @@ export const useSearch = (query = '', limit = 10) => {
   })
 
   const cancelToken = useRef(null)
-
   useEffect(() => {
     if (query.length < 3) {// условие для оптимизации количества запросов, если ввел больше трех букв тогда делать запрос
       return
     }
-
     if (cancelToken.current) { //отменяет запрос который не загрузился
       console.log('cancel -------------1')
       cancelToken.current.cancel()
     }
     cancelToken.current = axios.CancelToken.source();
-    setState({...state,status:'PENDING'})
+    setState({...state, status: 'PENDING'})
     axios.get(`https://en.wikipedia.org/w/api.php?origin=*&action=opensearch&search=${query}&limit=${limit}`, {
       cancelToken: cancelToken.current.token // добавляем вторым параметром
     })
@@ -49,7 +47,7 @@ export const useSearch = (query = '', limit = 10) => {
             error: error
           });
           if (axios.isCancel(error)) {
-            return
+            throw new Error('Error')
           }
         })
 
@@ -63,7 +61,6 @@ export const useDebounce = (value, delay = 500) => {
     const timer = setTimeout(() => {
       setDebouncedValue(value)
     }, delay)
-
     return () => {
       clearTimeout(timer)
     }

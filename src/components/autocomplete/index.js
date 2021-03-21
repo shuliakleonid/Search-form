@@ -4,10 +4,8 @@ import Input from '../input/input';
 import './style.scss'
 
 
-
-const Autocomplete = ({ articles, searchValue, onSearchChange }) => (
+const Autocomplete = ({articles, searchValue, onSearchChange}) => (
     <ReactAutocomplete
-
         className="autocomplete"
         items={articles}
         renderInput={Input}
@@ -29,7 +27,7 @@ const Autocomplete = ({ articles, searchValue, onSearchChange }) => (
                 key={item.id}
                 style={{backgroundColor: highlighted ? '#eee' : 'transparent'}}
             >
-              <a href={item.id} target="_blank">{item.label}</a>
+              <a href={item.id} target="_blank" rel="noreferrer">{item.label}</a>
             </div>
         }
         value={searchValue}

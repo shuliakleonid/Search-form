@@ -1,7 +1,7 @@
 import React from 'react';
 import {mount} from 'enzyme'
 
-import Container from ".";
+import Container from '.';
 
 jest.mock('../../hooks', () => ({
   useDebounce: jest.fn(() => ({})),
@@ -39,7 +39,7 @@ describe('Container component', () => {
     });
 
     it('should return searchValue in Children component', () => {
-      const { searchValue } = sut.find('Children').props();
+      const {searchValue} = sut.find('Children').props();
 
       expect(searchValue).toBe('testValue')
     })
