@@ -1,20 +1,20 @@
 {
   "files": {
     "main.css": "/Search-form/static/css/main.bb20185a.chunk.css",
-    "main.js": "/Search-form/static/js/main.36f558d7.chunk.js",
-    "main.js.map": "/Search-form/static/js/main.36f558d7.chunk.js.map",
+    "main.js": "/Search-form/static/js/main.f51aac5d.chunk.js",
+    "main.js.map": "/Search-form/static/js/main.f51aac5d.chunk.js.map",
     "runtime-main.js": "/Search-form/static/js/runtime-main.d4bb93b4.js",
     "runtime-main.js.map": "/Search-form/static/js/runtime-main.d4bb93b4.js.map",
-    "static/js/2.5434fff6.chunk.js": "/Search-form/static/js/2.5434fff6.chunk.js",
-    "static/js/2.5434fff6.chunk.js.map": "/Search-form/static/js/2.5434fff6.chunk.js.map",
+    "static/js/2.2329f533.chunk.js": "/Search-form/static/js/2.2329f533.chunk.js",
+    "static/js/2.2329f533.chunk.js.map": "/Search-form/static/js/2.2329f533.chunk.js.map",
     "index.html": "/Search-form/index.html",
     "static/css/main.bb20185a.chunk.css.map": "/Search-form/static/css/main.bb20185a.chunk.css.map",
-    "static/js/2.5434fff6.chunk.js.LICENSE.txt": "/Search-form/static/js/2.5434fff6.chunk.js.LICENSE.txt"
+    "static/js/2.2329f533.chunk.js.LICENSE.txt": "/Search-form/static/js/2.2329f533.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.d4bb93b4.js",
-    "static/js/2.5434fff6.chunk.js",
+    "static/js/2.2329f533.chunk.js",
     "static/css/main.bb20185a.chunk.css",
-    "static/js/main.36f558d7.chunk.js"
+    "static/js/main.f51aac5d.chunk.js"
   ]
 }
