@@ -2,6 +2,7 @@
   "name": "react-course",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://shuliakleonid.github.io/Search-form/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -12,6 +13,7 @@
     "enzyme-adapter-react-16": "^1.15.6",
     "enzyme-to-json": "^3.6.1",
     "node-sass": "4.14.1",
+    "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-autocomplete": "^1.8.1",
     "react-dom": "^16.13.1",
@@ -27,7 +29,9 @@
     "test:ci": "yarn test --coverage --watchAll=false",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -54,6 +58,7 @@
     "@storybook/node-logger": "^6.1.17",
     "@storybook/preset-create-react-app": "^3.1.5",
     "@storybook/react": "^6.1.17",
+    "gh-pages": "^3.1.0",
     "moxios": "^0.4.0"
   },
   "jest": {

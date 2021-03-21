@@ -15,18 +15,14 @@ export const useSearch = (query = '', limit = 10) => {
       return
     }
 
-    if (cancelToken.current) { //отменяет запрос который непрогрузившейся
+    if (cancelToken.current) { //отменяет запрос который не загрузился
       console.log('cancel -------------1')
       cancelToken.current.cancel()
     }
-
-
     cancelToken.current = axios.CancelToken.source();
-
     setState({...state,status:'PENDING'})
-
     axios.get(`https://en.wikipedia.org/w/api.php?origin=*&action=opensearch&search=${query}&limit=${limit}`, {
-      cancelToken: cancelToken.current.token // добывляем вторым парамертом
+      cancelToken: cancelToken.current.token // добавляем вторым параметром
     })
         .then(function (response) {
           const parseResponse = [];
@@ -60,7 +56,6 @@ export const useSearch = (query = '', limit = 10) => {
   }, [query]);
   return state
 }
-
 
 export const useDebounce = (value, delay = 500) => {
   const [debounceValue, setDebouncedValue] = useState(value)

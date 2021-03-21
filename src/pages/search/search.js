@@ -10,9 +10,6 @@ const Search = ({...props}) => {
   const query = params.get('query')
 
   const {articles, status} = useSearch(query, 50)
-  // if(!articles.length && status === 'SUCCESS'){
-  //   return <h3>No articles for query: {query}</h3>
-  // }
   return (
       <div>
         <Container>
