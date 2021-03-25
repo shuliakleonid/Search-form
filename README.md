@@ -3,7 +3,7 @@
 
 #### Description of your project
 This is clone of Google search with using Wikipedia API.
-####__In this project I do:__
+#### __In this project I do:__
 - cover all code with tests
 - create custom hook
 - fetching data with REST from Wikipedia
